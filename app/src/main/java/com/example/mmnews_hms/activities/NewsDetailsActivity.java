@@ -1,5 +1,7 @@
 package com.example.mmnews_hms.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -13,6 +15,13 @@ public class NewsDetailsActivity extends AppCompatActivity {
     ViewPager viewPager;
     NewsDetailsImageAdapter newsDetailsImageAdapter;
 
+
+    public static Intent newIntent(Context context) {
+
+        Intent intent = new Intent(context, NewsDetailsActivity.class);
+        return intent;
+
+    }
 
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.mmnews_hms.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,8 +14,9 @@ import android.view.MenuItem;
 
 import com.example.mmnews_hms.R;
 import com.example.mmnews_hms.adapters.NewsAdapter;
+import com.example.mmnews_hms.delegates.NewsItemDelegate;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NewsItemDelegate {
 
 
     RecyclerView rvNews;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         rvNews = findViewById(R.id.rv_news);
         rvNews.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
-        newsAdapter = new NewsAdapter();
+        newsAdapter = new NewsAdapter(this); // already implement NewsItemDelegate
         rvNews.setAdapter(newsAdapter);
 
 
@@ -67,5 +69,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onTapNewsItem() {
+
+        Intent intent = NewsDetailsActivity.newIntent(getApplicationContext());
+        startActivity(intent);
     }
 }
