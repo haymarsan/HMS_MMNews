@@ -2,8 +2,10 @@ package com.example.mmnews_hms.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
 
     RecyclerView rvNews;
     NewsAdapter newsAdapter;
+    NestedScrollView nsvBottomSheet;
+    BottomSheetBehavior<NestedScrollView> mBottomSheetBehavior;
 
 
     @Override
@@ -34,17 +38,35 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+                }else {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+
+
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
             }
         });
 
 
+        // Recycler view and setAdapter
         rvNews = findViewById(R.id.rv_news);
         rvNews.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
         newsAdapter = new NewsAdapter(this); // already implement NewsItemDelegate
         rvNews.setAdapter(newsAdapter);
+
+
+        // BottmSheetBehavior
+        nsvBottomSheet = findViewById(R.id.nsv_bottom_sheet);
+        mBottomSheetBehavior = BottomSheetBehavior.from(nsvBottomSheet);
+
+        mBottomSheetBehavior.setPeekHeight(0);
 
 
     }
