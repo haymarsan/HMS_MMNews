@@ -2,17 +2,23 @@ package com.example.mmnews_hms.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.mmnews_hms.R;
 import com.example.mmnews_hms.adapters.NewsAdapter;
@@ -25,14 +31,26 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
     NewsAdapter newsAdapter;
     NestedScrollView nsvBottomSheet;
     BottomSheetBehavior<NestedScrollView> mBottomSheetBehavior;
+    Toolbar mtoolbar;
+    DrawerLayout mDrawerLayout;
+    NavigationView mNavigationView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mtoolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mtoolbar);
+
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +86,37 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
 
         mBottomSheetBehavior.setPeekHeight(0);
 
+
+        //to select each menu in navigation view
+        mNavigationView = findViewById(R.id.navigation_view);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.menu_lastest_news:
+                        Toast.makeText(getApplicationContext(),"Lastest News", Toast.LENGTH_SHORT).show();
+                        mtoolbar.setTitle("Latest News");
+                        break;
+
+                    case R.id.menu_news_just_for_you:
+                        Toast.makeText(getApplicationContext(), "News Just for you", Toast.LENGTH_SHORT).show();
+                        mtoolbar.setTitle("News Just for you");
+                        break;
+
+                    case R.id.menu_favorite_news:
+                        Toast.makeText(getApplicationContext(), "Favourite News", Toast.LENGTH_SHORT).show();
+                        mtoolbar.setTitle("Favourite News");
+                        break;
+
+                }
+
+                for (int index = 0; index < mNavigationView.getMenu().size(); index++){
+                    mNavigationView.getMenu().getItem(index).setChecked(false);
+                }
+                menuItem.setChecked(true);
+                return false;
+            }
+        });
 
     }
 

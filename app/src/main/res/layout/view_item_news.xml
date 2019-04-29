@@ -121,6 +121,7 @@
 
             </FrameLayout>
 
+
             <FrameLayout
                 android:id="@+id/btn_send_to_news"
                 android:layout_width="0dp"
@@ -141,7 +142,6 @@
                     android:textSize="@dimen/text_regular" />
 
             </FrameLayout>
-
 
         </LinearLayout>
 
