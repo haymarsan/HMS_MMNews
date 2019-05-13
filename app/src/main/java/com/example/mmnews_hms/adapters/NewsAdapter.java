@@ -8,9 +8,15 @@ import android.view.ViewGroup;
 
 import com.example.mmnews_hms.R;
 import com.example.mmnews_hms.delegates.NewsItemDelegate;
+import com.example.mmnews_hms.views.holders.BaseNewsViewHolder;
+import com.example.mmnews_hms.views.holders.NewsSmallViewHolder;
 import com.example.mmnews_hms.views.holders.NewsViewHolder;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<BaseNewsViewHolder> {
+
+
+    private static final int REGULAR_NEWS_VIEW = 1234;
+    private static final int SMALL_NEWS_VIEW = 2345;
 
     private NewsItemDelegate mNewsItemDelegate;
 
@@ -22,20 +28,41 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     @NonNull
     @Override
-    public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public BaseNewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.view_item_news, viewGroup, false);
-        return new NewsViewHolder(itemView, mNewsItemDelegate);
+
+        switch (viewType){
+
+            case REGULAR_NEWS_VIEW:
+                View itemView = inflater.inflate(R.layout.view_item_news, viewGroup, false);
+                return new NewsViewHolder(itemView, mNewsItemDelegate);
+            case SMALL_NEWS_VIEW:
+                View itemViewSmall = inflater.inflate(R.layout.view_item_news_small, viewGroup, false);
+                return new NewsSmallViewHolder(itemViewSmall);
+
+
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsViewHolder newsViewHolder, int i) {
+    public void onBindViewHolder(@NonNull BaseNewsViewHolder baseNewsViewHolder, int position) {
 
     }
+
 
     @Override
     public int getItemCount() {
         return 12;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position % 3 == 0){
+            return REGULAR_NEWS_VIEW;
+        }else{
+            return SMALL_NEWS_VIEW;
+        }
     }
 }

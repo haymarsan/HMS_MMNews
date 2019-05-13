@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.menu_lastest_news:
-                        Toast.makeText(getApplicationContext(),"Lastest News", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Latest News", Toast.LENGTH_SHORT).show();
                         mtoolbar.setTitle("Latest News");
                         break;
 
@@ -143,9 +143,10 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
     }
 
     @Override
-    public void onTapNewsItem() {
+    public void onTapNewsItem(){
 
         Intent intent = NewsDetailsActivity.newIntent(getApplicationContext());
         startActivity(intent);
+
     }
 }
