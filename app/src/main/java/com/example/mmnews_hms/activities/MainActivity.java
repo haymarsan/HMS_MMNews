@@ -24,27 +24,36 @@ import com.example.mmnews_hms.R;
 import com.example.mmnews_hms.adapters.NewsAdapter;
 import com.example.mmnews_hms.delegates.NewsItemDelegate;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements NewsItemDelegate {
 
+    @BindView(R.id.toolbar)
+    Toolbar mtoolbar;
 
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
+
+    @BindView(R.id.navigation_view)
+    NavigationView mNavigationView;
+
+    BottomSheetBehavior<NestedScrollView> mBottomSheetBehavior;
     RecyclerView rvNews;
     NewsAdapter newsAdapter;
     NestedScrollView nsvBottomSheet;
-    BottomSheetBehavior<NestedScrollView> mBottomSheetBehavior;
-    Toolbar mtoolbar;
-    DrawerLayout mDrawerLayout;
-    NavigationView mNavigationView;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mtoolbar = findViewById(R.id.toolbar);
+       // mtoolbar = findViewById(R.id.toolbar); // no need cos of Butter Knife
         setSupportActionBar(mtoolbar);
 
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+       // mDrawerLayout = findViewById(R.id.drawer_layout);
         mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,25 +61,20 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+
+        // No need cos of Butter knife onClick Listener
+  /*      FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
-
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
-                }else {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
 
 
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
+                *//*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*//*
             }
         });
-
+*/
 
         // Recycler view and setAdapter
         rvNews = findViewById(R.id.rv_news);
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
 
 
         //to select each menu in navigation view
-        mNavigationView = findViewById(R.id.navigation_view);
+      //  mNavigationView = findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -147,6 +151,18 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
 
         Intent intent = NewsDetailsActivity.newIntent(getApplicationContext());
         startActivity(intent);
+
+    }
+
+    @OnClick(R.id.fab)
+    public void onTapFab(View view){
+        if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED){
+
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        }else {
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
 
     }
 }
