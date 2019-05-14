@@ -7,12 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mmnews_hms.R;
+import com.example.mmnews_hms.data.vos.NewsVO;
 import com.example.mmnews_hms.delegates.NewsItemDelegate;
 import com.example.mmnews_hms.views.holders.BaseNewsViewHolder;
 import com.example.mmnews_hms.views.holders.NewsSmallViewHolder;
 import com.example.mmnews_hms.views.holders.NewsViewHolder;
 
-public class NewsAdapter extends RecyclerView.Adapter<BaseNewsViewHolder> {
+public class NewsAdapter extends BaseRecyclerAdapter<BaseNewsViewHolder, NewsVO> {
 
 
     private static final int REGULAR_NEWS_VIEW = 1234;
@@ -46,16 +47,20 @@ public class NewsAdapter extends RecyclerView.Adapter<BaseNewsViewHolder> {
         return null;
     }
 
+
+    // Override (dynamic binding), not the method in BaseRecyclerVH (not appropiate for POC)
     @Override
     public void onBindViewHolder(@NonNull BaseNewsViewHolder baseNewsViewHolder, int position) {
 
     }
 
 
+    // Override (dynamic binding), not the method in BaseRecyclerVH (not appropiate for POC)
     @Override
     public int getItemCount() {
         return 12;
     }
+
 
     @Override
     public int getItemViewType(int position) {
