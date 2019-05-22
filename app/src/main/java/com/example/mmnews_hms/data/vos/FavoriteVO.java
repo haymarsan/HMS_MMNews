@@ -4,33 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class FavoriteVO {
 
-
+    @SerializedName("favorite-id")
     private String favoriteId;
-    private String favoriteDate;
-    private ActedUserVO actedUser;
 
+    @SerializedName("favorite-date")
+    private String favoriteDate;
+
+    @SerializedName("acted-user")
+    private ActedUserVO actedUser;
 
     public String getFavoriteId() {
         return favoriteId;
-    }
-
-    public void setFavoriteId(String favoriteId) {
-        this.favoriteId = favoriteId;
     }
 
     public String getFavoriteDate() {
         return favoriteDate;
     }
 
-    public void setFavoriteDate(String favoriteDate) {
-        this.favoriteDate = favoriteDate;
-    }
-
     public ActedUserVO getActedUser() {
         return actedUser;
-    }
-
-    public void setActedUser(ActedUserVO actedUser) {
-        this.actedUser = actedUser;
     }
 }

@@ -4,9 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class SendToVO {
 
+    @SerializedName("send-to-id")
     private String sentToId;
+
+    @SerializedName("sent-date")
     private String sentToDate;
+
+    @SerializedName("acted-user")
     private ActedUserVO actedUser;
+
+    @SerializedName("received-user")
     private ActedUserVO receivedUser;
 
     public String getSentToId() {

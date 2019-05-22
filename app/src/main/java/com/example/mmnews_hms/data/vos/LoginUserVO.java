@@ -4,14 +4,25 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+
 public class LoginUserVO {
 
-
+    @PrimaryKey
     private int userId;
+
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "email")
     private String email;
+
+    @ColumnInfo(name = "phone_no")
     private String phoneNo;
+
+    @ColumnInfo(name = "profile_url")
     private String profileUrl;
+
+    @ColumnInfo(name = "cover_url")
     private String coverUrl;
 
     public int getUserId() {

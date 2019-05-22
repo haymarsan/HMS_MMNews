@@ -5,8 +5,16 @@ import android.arch.persistence.room.ColumnInfo;
 import com.google.gson.annotations.SerializedName;
 
 public class PublicationVO {
+
+    @SerializedName("publication-id")
     private String publicationId;
+
+
+    @SerializedName("title")
     private String title;
+
+
+    @SerializedName("logo")
     private String logo;
 
     public String getPublicationId() {
