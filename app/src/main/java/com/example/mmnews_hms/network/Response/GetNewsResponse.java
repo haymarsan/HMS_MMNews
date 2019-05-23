@@ -24,6 +24,7 @@ public class GetNewsResponse {
     private List<NewsVO> newsList;
 
 
+
     public int getCode() {
         return code;
     }
@@ -63,6 +64,11 @@ public class GetNewsResponse {
     public void setNewsList(List<NewsVO> newsList) {
         this.newsList = newsList;
     }
+
+    public Boolean isResponseSuccess (){
+        return code == 200;
+    }
+
 }
 
 

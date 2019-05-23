@@ -22,9 +22,15 @@ import android.widget.Toast;
 
 import com.example.mmnews_hms.R;
 import com.example.mmnews_hms.adapters.NewsAdapter;
+import com.example.mmnews_hms.data.model.INewsModel;
+import com.example.mmnews_hms.data.model.NewsModel;
+import com.example.mmnews_hms.data.vos.NewsVO;
 import com.example.mmnews_hms.delegates.NewsItemDelegate;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements NewsItemDelegate {
@@ -43,12 +49,17 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
     NewsAdapter newsAdapter;
     NestedScrollView nsvBottomSheet;
 
+    NewsModel mNewsModel;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this); // need to write this one to use butter knife
+
        // mtoolbar = findViewById(R.id.toolbar); // no need cos of Butter Knife
         setSupportActionBar(mtoolbar);
 
@@ -92,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
 
 
         //to select each menu in navigation view
-      //  mNavigationView = findViewById(R.id.navigation_view);
+        //mNavigationView = findViewById(R.id.navigation_view);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -121,6 +132,13 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
                 return false;
             }
         });
+
+
+
+        //Data Bind
+        mNewsModel = NewsModel.getObjInstance();
+
+        bindNews(true);
 
     }
 
@@ -165,4 +183,26 @@ public class MainActivity extends AppCompatActivity implements NewsItemDelegate 
         }
 
     }
-}
+
+
+    //To get News from Model and show in presenter/Act
+    private void bindNews(boolean isForce){
+
+        List<NewsVO> news = mNewsModel.getNews(new INewsModel.NewsDelegate() {
+            @Override
+            public void onNewsFetchFromNetwork(List<NewsVO> newsList) {
+                newsAdapter.setNewData(newsList);
+            }
+
+            @Override
+            public void onErrorOnNewsFetch(String message) {
+                Toast.makeText(getApplicationContext(), "Error on Network Call", Toast.LENGTH_SHORT).show();
+            }
+        }, isForce);
+
+        if (news != null){
+            newsAdapter.setNewData(news);
+        }
+        }
+    }
+
