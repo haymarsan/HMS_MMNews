@@ -34,7 +34,7 @@ public class RetrofitDataAgent implements NewsDataAgent {
                 .client(okHttpClient)
                 .build();
 
-        NewsAPI mNewsAPI = retrofit.create(NewsAPI.class);
+       mNewsAPI = retrofit.create(NewsAPI.class);
 
     }
 

@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements NewsItemDelegate {
+public class MainActivity extends BaseActivity implements NewsItemDelegate {
 
     @BindView(R.id.toolbar)
     Toolbar mtoolbar;

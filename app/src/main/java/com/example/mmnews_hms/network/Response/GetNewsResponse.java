@@ -18,7 +18,7 @@ public class GetNewsResponse {
     private String apiVersion;
 
     @SerializedName("page")
-    private String page;
+    private int page;
 
     @SerializedName("mmNews")
     private List<NewsVO> newsList;
@@ -49,11 +49,12 @@ public class GetNewsResponse {
         this.apiVersion = apiVersion;
     }
 
-    public String getPage() {
+
+    public int getPage() {
         return page;
     }
 
-    public void setPage(String page) {
+    public void setPage(int page) {
         this.page = page;
     }
 

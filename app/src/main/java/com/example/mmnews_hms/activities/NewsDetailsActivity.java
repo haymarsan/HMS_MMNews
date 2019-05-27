@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.mmnews_hms.R;
 import com.example.mmnews_hms.adapters.NewsDetailsImageAdapter;
 
-public class NewsDetailsActivity extends AppCompatActivity {
+public class NewsDetailsActivity extends BaseActivity {
 
     ViewPager viewPager;
     NewsDetailsImageAdapter newsDetailsImageAdapter;

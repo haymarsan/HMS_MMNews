@@ -48,6 +48,8 @@ public class NewsAdapter extends BaseRecyclerAdapter<BaseNewsViewHolder, NewsVO>
     }
 
 
+    // no need to bind in adapter, API data will bind in View Holder
+/*
     // Override (dynamic binding), not the method in BaseRecyclerVH (not appropiate for POC)
     @Override
     public void onBindViewHolder(@NonNull BaseNewsViewHolder baseNewsViewHolder, int position) {
@@ -60,6 +62,7 @@ public class NewsAdapter extends BaseRecyclerAdapter<BaseNewsViewHolder, NewsVO>
     public int getItemCount() {
         return 12;
     }
+*/
 
 
     @Override

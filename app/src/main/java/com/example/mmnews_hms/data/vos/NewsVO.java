@@ -49,6 +49,13 @@ public class NewsVO {
     private List<FavoriteVO> favorites;
 
 
+    public List<String> getImages() {
+        if (images == null){
+            return new ArrayList<>();
+        }
+        return images;
+    }
+
     @SerializedName("comments")
     private List<CommentVO> comments;
 
@@ -128,4 +135,13 @@ public class NewsVO {
     public void setSendTos(List<SendToVO> sendTos) {
         this.sendTos = sendTos;
     }
+
+
+    public String getHeroImage (){
+        if (getImages().isEmpty()){
+            return null;
+        }
+        return getImages().get(0);
+    }
+
 }
