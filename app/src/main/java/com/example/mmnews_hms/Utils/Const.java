@@ -13,6 +13,9 @@ public class Const {
     public static final String PARAM_ACCESS_TOKEN = "access_token";
     public static final String PARAM_PAGE = "page";
 
+    public static final String PARAM_PHONE_NUMBER = "phoneNo";
+    public static final String PARAM_PASSWORD = "password";
+
 
 
 

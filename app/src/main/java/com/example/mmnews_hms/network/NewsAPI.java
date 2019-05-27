@@ -2,6 +2,7 @@ package com.example.mmnews_hms.network;
 
 import com.example.mmnews_hms.Utils.Const;
 import com.example.mmnews_hms.network.Response.GetNewsResponse;
+import com.example.mmnews_hms.network.Response.LoginUserResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -15,8 +16,9 @@ public interface NewsAPI {
     Call<GetNewsResponse> loadNews(@Field(Const.PARAM_ACCESS_TOKEN)String accessToken,
                                    @Field(Const.PARAM_PAGE)int page);
 
-   /* @FormUrlEncoded
+    @FormUrlEncoded
     @POST(Const.LOGIN_NEWS)
-    Call<>*/
+    Call<LoginUserResponse> login(@Field(Const.PARAM_PHONE_NUMBER) String phoneNo,
+                                  @Field(Const.PARAM_PASSWORD) String password);
 
 }

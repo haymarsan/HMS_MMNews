@@ -1,8 +1,11 @@
 package com.example.mmnews_hms.network;
 
 import com.example.mmnews_hms.Utils.Const;
+import com.example.mmnews_hms.data.vos.LoginUserVO;
 import com.example.mmnews_hms.data.vos.NewsVO;
+import com.example.mmnews_hms.delegates.LoginDelegate;
 import com.example.mmnews_hms.network.Response.GetNewsResponse;
+import com.example.mmnews_hms.network.Response.LoginUserResponse;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -72,7 +75,28 @@ public class RetrofitDataAgent implements NewsDataAgent {
     }
 
     @Override
-    public void login(String phone, String password) {
+    public void login(String phone, String password, final LoginDelegate loginDelegate) {
+        final Call<LoginUserResponse> loginUserResponseCall = mNewsAPI.login(phone, password);
+        loginUserResponseCall.enqueue(new Callback<LoginUserResponse>() {
+            @Override
+            public void onResponse(Call<LoginUserResponse> call, Response<LoginUserResponse> response) {
+                LoginUserResponse loginUserResponse = response.body();
+                if (loginUserResponse != null){
+                    if (loginUserResponse.isResponseSuccess()){
+                        loginDelegate.onSuccess(loginUserResponse.getLoginUser());
+                    }else {
+                        loginDelegate.onFail(loginUserResponse.getMessage());
+                    }
+                }else {
+                    loginDelegate.onFail("Response is Null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginUserResponse> call, Throwable t) {
+                    loginDelegate.onFail(t.getMessage());
+            }
+        });
 
     }
 
