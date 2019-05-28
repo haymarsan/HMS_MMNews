@@ -7,6 +7,7 @@ import com.example.mmnews_hms.data.vos.CommentVO;
 import com.example.mmnews_hms.data.vos.FavoriteVO;
 import com.example.mmnews_hms.data.vos.NewsVO;
 import com.example.mmnews_hms.data.vos.SendToVO;
+import com.example.mmnews_hms.delegates.GetNewsDelegate;
 import com.example.mmnews_hms.network.NewsDataAgent;
 import com.example.mmnews_hms.network.RetrofitDataAgent;
 
@@ -57,6 +58,35 @@ public class NewsModel extends BaseModel implements INewsModel{
     @Override
     public @Nullable
     List<NewsVO> getNews(final NewsDelegate newsDelegate, boolean isForce) {
+        if (mNews.isEmpty() || isForce) {
+            mNewsDataAgent.loadNews(1,
+                    Const.ACCESS_TOKEN,
+                    new GetNewsDelegate() {
+                        @Override
+                        public void onSuccess(List<NewsVO> newsList) {
+                            for (NewsVO news : newsList) {
+                                mNews.put(news.getNewsId(), news);
+                            }
+                            newsDelegate.onNewsFetchFromNetwork(new ArrayList<>(mNews.values()));
+                        }
+
+                        @Override
+                        public void onFail(String msg) {
+                            newsDelegate.onErrorOnNewsFetch(msg);
+                        }
+                    });
+        } else {
+            return new ArrayList<>(mNews.values());
+        }
+
+        return null;
+    }
+}
+
+/*
+    @Override
+    public @Nullable
+    List<NewsVO> getNews(final NewsDelegate newsDelegate, boolean isForce) {
         if (mNews.isEmpty() || isForce){
             mNewsDataAgent.loadNews(1, Const.ACCESS_TOKEN,
                     new RetrofitDataAgent.NewsResponseDelegate() {
@@ -79,5 +109,6 @@ public class NewsModel extends BaseModel implements INewsModel{
         return null;
     }
 
+*/
 
-}
+

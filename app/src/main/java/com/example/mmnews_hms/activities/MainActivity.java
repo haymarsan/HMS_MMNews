@@ -1,5 +1,6 @@
 package com.example.mmnews_hms.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,8 +25,10 @@ import com.example.mmnews_hms.R;
 import com.example.mmnews_hms.adapters.NewsAdapter;
 import com.example.mmnews_hms.data.model.INewsModel;
 import com.example.mmnews_hms.data.model.NewsModel;
+import com.example.mmnews_hms.data.model.UserModel;
 import com.example.mmnews_hms.data.vos.NewsVO;
 import com.example.mmnews_hms.delegates.NewsItemDelegate;
+import com.example.mmnews_hms.views.pods.LoginUserViewPod;
 
 import java.util.List;
 
@@ -49,9 +52,13 @@ public class MainActivity extends BaseActivity implements NewsItemDelegate {
     NewsAdapter newsAdapter;
     NestedScrollView nsvBottomSheet;
 
-    NewsModel mNewsModel;
+    private NewsModel mNewsModel;
+    private UserModel mUserModel;
 
-
+    public static Intent newIntent (Context context){
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +144,13 @@ public class MainActivity extends BaseActivity implements NewsItemDelegate {
 
         //Data Bind
         mNewsModel = NewsModel.getObjInstance();
+
+
+        // Login Data Bind
+        mUserModel = UserModel.getInstance();
+
+        LoginUserViewPod vpLoginUser = (LoginUserViewPod) mNavigationView.getHeaderView(0);
+        vpLoginUser.setData(mUserModel.getLoginUser());
 
         bindNews(true);
 

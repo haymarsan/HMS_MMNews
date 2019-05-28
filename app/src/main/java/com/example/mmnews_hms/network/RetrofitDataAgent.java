@@ -3,6 +3,7 @@ package com.example.mmnews_hms.network;
 import com.example.mmnews_hms.Utils.Const;
 import com.example.mmnews_hms.data.vos.LoginUserVO;
 import com.example.mmnews_hms.data.vos.NewsVO;
+import com.example.mmnews_hms.delegates.GetNewsDelegate;
 import com.example.mmnews_hms.delegates.LoginDelegate;
 import com.example.mmnews_hms.network.Response.GetNewsResponse;
 import com.example.mmnews_hms.network.Response.LoginUserResponse;
@@ -49,6 +50,9 @@ public class RetrofitDataAgent implements NewsDataAgent {
     }
 
 
+
+/*
+
     @Override
     public void loadNews(int page, String accessToken, final NewsResponseDelegate newsResponseDelegate) {
         Call<GetNewsResponse> callNewsResponse = mNewsAPI.loadNews(accessToken, page);
@@ -74,6 +78,27 @@ public class RetrofitDataAgent implements NewsDataAgent {
         });
     }
 
+        */
+
+    @Override
+    public void loadNews(int page, String accessToken, final GetNewsDelegate newsResponseDelegate) {
+        Call<GetNewsResponse> callGetNewsResponse = mNewsAPI.loadNews(accessToken, page);
+        callGetNewsResponse.enqueue(new NewsCallBack<GetNewsResponse, GetNewsDelegate>(newsResponseDelegate) {
+            @Override
+            public void onResponse(Call<GetNewsResponse> call, Response<GetNewsResponse> response) {
+                super.onResponse(call, response);
+
+                GetNewsResponse newsResponse = response.body();
+                newsResponseDelegate.onSuccess(newsResponse.getNewsList());
+            }
+        });
+        // callGetNewsResponse.enqueue(new NewsCallBack<GetNewsResponse, GetNewsDelegate>(newsResponseDelegate){});
+
+    }
+
+
+
+
     @Override
     public void login(String phone, String password, final LoginDelegate loginDelegate) {
         final Call<LoginUserResponse> loginUserResponseCall = mNewsAPI.login(phone, password);
@@ -81,24 +106,25 @@ public class RetrofitDataAgent implements NewsDataAgent {
             @Override
             public void onResponse(Call<LoginUserResponse> call, Response<LoginUserResponse> response) {
                 LoginUserResponse loginUserResponse = response.body();
-                if (loginUserResponse != null){
-                    if (loginUserResponse.isResponseSuccess()){
+                if (loginUserResponse != null) {
+                    if (loginUserResponse.isResponseSuccess()) {
                         loginDelegate.onSuccess(loginUserResponse.getLoginUser());
-                    }else {
+                    } else {
                         loginDelegate.onFail(loginUserResponse.getMessage());
                     }
-                }else {
+                } else {
                     loginDelegate.onFail("Response is Null");
                 }
             }
 
             @Override
             public void onFailure(Call<LoginUserResponse> call, Throwable t) {
-                    loginDelegate.onFail(t.getMessage());
+                loginDelegate.onFail(t.getMessage());
             }
         });
 
     }
+
 
     @Override
     public void register(String phone, String password, String name) {
@@ -107,6 +133,7 @@ public class RetrofitDataAgent implements NewsDataAgent {
     }
 
 
+/*
     public interface NewsResponseDelegate {
 
         void onSuccess(List<NewsVO> newsList);
@@ -114,5 +141,6 @@ public class RetrofitDataAgent implements NewsDataAgent {
         void onFail(String message);
 
     }
+*/
 
 }

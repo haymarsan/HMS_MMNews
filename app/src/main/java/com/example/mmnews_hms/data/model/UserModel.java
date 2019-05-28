@@ -14,7 +14,7 @@ public class UserModel extends BaseModel implements IUserModel{
 
     private NewsDataAgent mDataAgent;
 
-    private LoginUserVO mloginUser;
+    private LoginUserVO mLoginUser;
 
     private UserModel(){
 
@@ -34,7 +34,7 @@ public class UserModel extends BaseModel implements IUserModel{
             mDataAgent.login(phone, password, new LoginDelegate() {
                 @Override
                 public void onSuccess(LoginUserVO loginUser) {
-                    mloginUser = loginUser;
+                    mLoginUser = loginUser;
                     loginDelegate.onSuccess(loginUser);
                 }
 
@@ -47,6 +47,6 @@ public class UserModel extends BaseModel implements IUserModel{
 
     @Override
     public LoginUserVO getLoginUser() {
-        return null;
+        return mLoginUser;
     }
 }
