@@ -1,5 +1,6 @@
 package com.example.mmnews_hms.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,6 +32,10 @@ public class LoginActivity extends BaseActivity {
 
     private UserModel mUserModel;
 
+    public static Intent newIntent (Context context){
+        Intent intent = new Intent(context, LoginActivity.class);
+        return intent;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

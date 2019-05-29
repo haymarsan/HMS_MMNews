@@ -149,6 +149,14 @@ public class MainActivity extends BaseActivity implements NewsItemDelegate {
         // Login Data Bind
         mUserModel = UserModel.getInstance();
 
+
+        if(!mUserModel.isUserLogin()){
+            Intent intent = LoginActivity.newIntent(getApplicationContext());
+            startActivity(intent);
+
+            return;
+        }
+
         LoginUserViewPod vpLoginUser = (LoginUserViewPod) mNavigationView.getHeaderView(0);
         vpLoginUser.setData(mUserModel.getLoginUser());
 

@@ -67,7 +67,9 @@ public class NewsModel extends BaseModel implements INewsModel{
                             for (NewsVO news : newsList) {
                                 mNews.put(news.getNewsId(), news);
                             }
-                            newsDelegate.onNewsFetchFromNetwork(new ArrayList<>(mNews.values()));
+                            newsDelegate.onNewsFetchFromNetwork(new ArrayList<
+
+                                    >(mNews.values()));
                         }
 
                         @Override

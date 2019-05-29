@@ -10,4 +10,7 @@ public interface IUserModel {
 
     LoginUserVO getLoginUser();
 
+
+    boolean isUserLogin();
+
 }
